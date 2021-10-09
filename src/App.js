@@ -1,5 +1,6 @@
 
 import './App.css';
+import Post from './Post';
 
 function App() {
   return (
@@ -15,7 +16,9 @@ function App() {
         </div>
 
         <h1>Allison's instagram clone </h1>
-        
+
+        <Post />
+
 
     </div>
   );
