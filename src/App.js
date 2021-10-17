@@ -107,11 +107,7 @@ function App() {
   return (
 
     <div className="App">
-      {user?.displayName ? (
-        <ImageUpload username={user.displayName} />
-      ): (
-        <h3>Sorry you need to login to upload</h3>
-      )}
+   
       
 
       <Modal
@@ -206,9 +202,8 @@ function App() {
             src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
             alt=""
             />
-        </div>
 
-        { user ? (
+      { user ? (
       <Button onClick={() => auth.signOut() }>Logout</Button>
         ): (
           <div className="app__loginContainer">
@@ -216,6 +211,9 @@ function App() {
        <Button onClick={() => setOpen (true) }>Sign Up</Button>
        </div>
        )}
+        </div>
+
+     
       
         <h1>Allison's instagram clone </h1>
         {
@@ -232,7 +230,11 @@ function App() {
             ))} 
            
 
-      
+           {user?.displayName ? (
+        <ImageUpload username={user.displayName} />
+      ): (
+        <h3>Sorry you need to login to upload</h3>
+      )}
 
          
 
