@@ -5,7 +5,7 @@ import ImageUpload from './ImageUpload';
 import { db, auth} from './firebase';
 import { Box, Button, Input, Modal } from '@mui/material';
 import Typography from '@mui/material/Typography';
-
+import InstagramEmbed from "react-instagram-embed";
 
 
 
@@ -213,12 +213,10 @@ function App() {
        )}
         </div>
 
-     
-      
-        <h1>Allison's instagram clone </h1>
-        {
-        
-          posts.map( ({ id, post })=> (
+          <div className="app__posts">
+            <div className="app__postsLeft">
+            {
+            posts.map( ({ id, post })=> (
             <Post 
             user={user}
             key={id}
@@ -227,18 +225,30 @@ function App() {
             caption={post.caption} 
             imageUrl={post.imageUrl} 
             />
-            ))} 
-           
+          ))} 
+            </div>
+              <div className= "app__postsRight">
+              <InstagramEmbed
+                url='https://www.instagram.com/p/Zw9o4/'
+                clientAccessToken='123|456'
+                maxWidth={320}
+                hideCaption={false}
+                containerTagName='div'
+                protocol=''
+                injectScript
+                onLoading={() => {}}
+                onSuccess={() => {}}
+                onAfterRender={() => {}}
+                onFailure={() => {}}
+              />
+              </div>
+            </div>
 
-           {user?.displayName ? (
-        <ImageUpload username={user.displayName} />
-      ): (
-        <h3>Sorry you need to login to upload</h3>
-      )}
-
-         
-
-        
+                {user?.displayName ? (
+              <ImageUpload username={user.displayName} />
+            ): (
+              <h3>Sorry you need to login to upload</h3>
+            )}
 
   </div>
   
