@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Post from './Post';
+import ImageUpload from './ImageUpload';
 import { db, auth} from './firebase';
 import { Box, Button, Input, Modal } from '@mui/material';
 import Typography from '@mui/material/Typography';
+
 
 
 
@@ -62,7 +64,7 @@ function App() {
 
     useEffect(() => {
       //this is where the code runs
-      db.collection('posts').onSnapshot(snapshot => {
+      db.collection('posts').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
         // every time a new post is added, this code fires...
       setPosts(snapshot.docs.map(doc => ({
         id: doc.id,
@@ -103,8 +105,15 @@ function App() {
 
 
   return (
+
     <div className="App">
-        
+      {user?.displayName ? (
+        <ImageUpload username={user.displayName} />
+      ): (
+        <h3>Sorry you need to login to upload</h3>
+      )}
+      
+
       <Modal
         open={open}
         onClose={handleClose}
@@ -210,17 +219,28 @@ function App() {
       
         <h1>Allison's instagram clone </h1>
         {
+        
           posts.map( ({ id, post })=> (
-            <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl} />
+            <Post 
+            user={user}
+            key={id}
+            postId={id} 
+            username={post.username} 
+            caption={post.caption} 
+            imageUrl={post.imageUrl} 
+            />
+            ))} 
+           
 
-          ))
-        } 
+      
 
          
 
         
 
-    </div>
+  </div>
+  
+  
   );
 }
 
